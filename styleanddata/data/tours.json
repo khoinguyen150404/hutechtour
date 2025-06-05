@@ -3,7 +3,7 @@
     {
       "id": "phuyen",
       "ten": "Tour Phú Yên",
-      "image": "assets/images/our-phuyen.jpg",
+      "image": "styleanddata/images/our-phuyen.jpg",
       "giamGia": "20%",
       "thoiGian": "3 ngày 2 đêm",
       "moTa": "Khám phá Nhà thờ Mằng Lăng, Đầm Ô Loan, Bãi Xép, Vũng Rô và Hải Đăng Mũi Điện.",
@@ -18,7 +18,7 @@
     {
       "id": "condao",
       "ten": "Tour Côn Đảo",
-      "image": "assets/images/condao.jpg",
+      "image": "styleanddata/images/condao.jpg",
       "giamGia": "10%",
       "thoiGian": "3 ngày 2 đêm",
       "moTa": "Tham quan Trại Phú Hải, Chuồng Cọp, tắm biển Đầm Trầu, viếng mộ chị Võ Thị Sáu.",
@@ -33,7 +33,7 @@
     {
       "id": "mangden",
       "ten": "Tour Măng Đen",
-      "image": "assets/images/manden.jpg",
+      "image": "styleanddata/images/manden.jpg",
       "giamGia": "15%",
       "thoiGian": "3 ngày 2 đêm",
       "moTa": "Trải nghiệm văn hóa địa phương, tham quan Thác Pa Sỹ, Hồ Đắk Ke, làng Kon Bring.",
@@ -48,7 +48,7 @@
     {
       "id": "lyson",
       "ten": "Tour Lý Sơn",
-      "image": "assets/images/lyson.jpg",
+      "image": "styleanddata/images/lyson.jpg",
       "giamGia": "20%",
       "thoiGian": "4 ngày 3 đêm",
       "moTa": "Lặn ngắm san hô ở đảo Bé, tham quan Chùa Hang, Cổng Tò Vò, Nhà trưng bày Hoàng Sa.",
@@ -63,7 +63,7 @@
     {
       "id": "quynhon",
       "ten": "Tour Quy Nhơn",
-      "image": "assets/images/quynhon.jpg",
+      "image": "styleanddata/images/quynhon.jpg",
       "giamGia": "15%",
       "thoiGian": "3 ngày 2 đêm",
       "moTa": "Tham quan Ghềnh Ráng Tiên Sa, Kỳ Co – Eo Gió, Tháp Đôi.",
@@ -78,7 +78,7 @@
     {
       "id": "hagiang",
       "ten": "Tour Hà Giang",
-      "image": "assets/images/ha-giang.jpg",
+      "image": "styleanddata/images/ha-giang.jpg",
       "giamGia": "18%",
       "thoiGian": "3 ngày 4 đêm",
       "moTa": "Chinh phục đèo Mã Pí Lèng, tham quan đồng hoa Tam Giác Mạch, bản Lô Lô Chải.",
@@ -93,7 +93,7 @@
     {
       "id": "dalat-gia",
       "ten": "Tour Đà Lạt Giá Sốc",
-      "image": "assets/images/da-lat.jpg",
+      "image": "styleanddata/images/da-lat.jpg",
       "giamGia": "12%",
       "thoiGian": "3 ngày 2 đêm",
       "moTa": "Khám phá Thung lũng Tình Yêu, Đồi Mộng Mơ, dạo chợ đêm và nghe nhạc Trịnh.",
@@ -110,7 +110,7 @@
     {
       "id": "mientay",
       "ten": "Combo Tour Miền Tây",
-      "image": "assets/images/tour-mientay.jpg",
+      "image": "styleanddata/images/tour-mientay.jpg",
       "thoiGian": "3 ngày 2 đêm",
       "moTa": "Trải nghiệm văn hóa miệt vườn, tham quan Cồn Phụng, Chùa Dơi, chợ nổi Cái Răng.",
       "gia": "8.690.000",
@@ -123,7 +123,7 @@
     {
       "id": "sapa",
       "ten": "Tour Sapa",
-      "image": "assets/images/tour-sapa.jpg",
+      "image": "styleanddata/images/tour-sapa.jpg",
       "thoiGian": "5 ngày 4 đêm",
       "moTa": "Khám phá bản Cát Cát, chinh phục Fansipan, dạo Sapa.",
       "gia": "11.190.000",
@@ -136,7 +136,7 @@
     {
       "id": "phanthiet",
       "ten": "Tour Phan Thiết",
-      "image": "assets/images/tour-phanthiet.jpg",
+      "image": "styleanddata/images/tour-phanthiet.jpg",
       "thoiGian": "2 ngày 1 đêm",
       "moTa": "Tham quan Đồi Cát Bay, Suối Tiên, biển Mũi Né và Lầu Ông Hoàng.",
       "gia": "1.690.000",
@@ -149,7 +149,7 @@
     {
       "id": "danang",
       "ten": "Tour Đà Nẵng – Hội An – Bà Nà Hills",
-      "image": "assets/images/tour-DNHABNH.jpg",
+      "image": "styleanddata/images/tour-DNHABNH.jpg",
       "thoiGian": "4 ngày 3 đêm",
       "moTa": "Tham quan NGŨ HÀNH SƠN, PHỐ CỔ HỘI AN, BÀ NÀ HILLS, CẦU VÀNG, FANTASY PARK...",
       "gia": "6.690.000",
@@ -162,7 +162,7 @@
     {
       "id": "haiphong",
       "ten": "Tour Hải Phòng - Đồ Sơn",
-      "image": "assets/images/haiphong.jpg",
+      "image": "styleanddata/images/haiphong.jpg",
       "thoiGian": "2 ngày 1 đêm",
       "moTa": "Tham quan Đồ Sơn, vịnh Hạ Long, trải nghiệm hải sản tươi sống.",
       "gia": "2.150.000",
@@ -175,7 +175,7 @@
     {
       "id": "ninhbinh",
       "ten": "Tour Ninh Bình - Tràng An",
-      "image": "assets/images/ninh-binh.jpg",
+      "image": "styleanddata/images/ninh-binh.jpg",
       "thoiGian": "2 ngày 1 đêm",
       "moTa": "Du ngoạn Tràng An, chùa Bái Đính, hang Múa và Tam Cốc Bích Động.",
       "gia": "2.550.000",
