@@ -1,0 +1,621 @@
+/* ===========================
+   CSS NGUYÊN BẢN CỦA HOME
+   (không thay đổi gì, giữ nguyên từ đầu file của bạn)
+   =========================== */
+   *,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: #f2efe9; /* màu be nhạt */
+  color: #3b3b3b;
+}
+.tdx {
+    width: 100%;
+    height: 500px;
+    border: none;
+    position: relative; /* Để iframe phủ đầy toàn bộ khu vực */
+ 
+}
+.commitment {
+  background-color: #f8f4ee;
+  padding: 40px 20px;
+  text-align: center;
+  border-radius: 12px;
+  margin: 40px auto;
+  max-width: 800px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.commitment h2 {
+  font-size: 28px;
+  color: #3a2d21;
+  margin-bottom: 16px;
+}
+.commitment p {
+  font-size: 16px;
+  color: #5c4a39;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Top Bar */
+.top-bar {
+  background: #4b3b2a; /* nâu gỗ */
+  color: #f8f1e7;
+  padding: 10px 20px;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Navigation */
+nav {
+  background: #3a2d21; /* nâu socola đậm */
+  color: #e6e1d6;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  height: 60px;
+}
+nav .logo {
+  font-size: 24px;
+  font-weight: bold;
+  left: 50px;
+  top: 10px;
+  position: relative;
+}
+.logo img {
+  height: 40px;
+  margin-top: -40%;
+}
+
+nav .menu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  top: 10px;
+  position: relative;
+}
+
+nav .menu li {
+  padding: 10px 0;
+}
+.homechose {
+  background-color: #5c4a39;
+  padding: 12px;
+  border-radius: 10px 10px 0 0;
+}
+
+
+/* 4. Welcome Marquee */
+.welcome-text {
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(90deg, #f4ede4, #d2b48c, #f4ede4);
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.welcome-text span {
+  position: absolute;
+  width: max-content;
+  height: 100%;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: #5d4037;
+  font-size: 1.2em;
+  line-height: 40px;
+  animation: scroll-left 20s linear infinite;
+  padding: 0 50px;
+}
+@keyframes scroll-left {
+  0%   { left: 100%; }
+  100% { left: -100%; }
+}
+
+/* 5. Thân Trang Đặt Tour (booking) */
+.booking-container {
+  max-width: 1200px;
+  margin: 20px auto 100px auto;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  display: flex;
+}
+.tour-image {
+  width: 400px;
+  height: 850px;
+  object-fit: cover;
+  margin-left: 70px;
+}
+.booking-content {
+  width: 50%;
+  padding: 30px 40px;
+}
+.tour-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* 6. Thông tin tour */
+.tour-info {
+  margin-bottom: 30px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.info-section {
+  padding: 20px;
+}
+.tour-info p {
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #666;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95em;
+}
+.tour-info p:last-child {
+  border-bottom: none;
+}
+.tour-info p:hover {
+  background: #f8f8f8;
+}
+.tour-info strong {
+  color: #333;
+  min-width: 150px;
+}
+.booked-count {
+  font-weight: 600;
+  color: #5d4037;
+  margin-left: 5px;
+}
+
+/* 7. Giá & Thanh toán */
+.price-footer {
+  padding: 20px;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-top: 30px;
+  font-family: "Times New Roman", Times, serif;
+}
+.price-info {
+  text-align: right;
+  margin-bottom: 15px;
+}
+.original-price {
+  display: block;
+  color: #999;
+  text-decoration: line-through;
+  margin-bottom: 5px;
+  font-size: 0.95em;
+}
+.final-price {
+  display: block;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #5d4037;
+}
+
+/* 8. Booking form (số lượng vé, ngày khởi hành, v.v.) */
+.booking-form {
+  margin-top: 30px;
+}
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap; /* Thêm để gói flex item trên mobile */
+}
+.form-group > div {
+  flex: 1;
+  min-width: 150px; /* để mỗi ô tối thiểu có kích thước phù hợp */
+}
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #666;
+  font-size: 0.95em;
+}
+input[type="number"],
+input[type="date"],
+select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.95em;
+}
+.payment-section {
+  margin-top: 20px;
+}
+.payment-section select {
+  width: 100%;
+  font-family: "Times New Roman", Times, serif;
+  margin-bottom: 15px;
+}
+.checkout-button {
+  font-family: "Times New Roman", Times, serif;
+  width: 100%;
+  background: #5d4037;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 1em;
+}
+.checkout-button:hover {
+  background: #3e2723;
+}
+
+/* 9. Popup Warning, QR, Loading, Success */
+.popup-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+.popup {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+  font-family: 'Poppins', sans-serif;
+}
+.popup h3 {
+  margin-bottom: 10px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3em;
+}
+.popup p {
+  font-size: 0.95em;
+  margin-top: 5px;
+}
+.popup-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+.popup-button {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.95em;
+}
+.popup-button.confirm {
+  background: #5d4037;
+  color: white;
+}
+.popup-button.cancel {
+  background: #999;
+  color: white;
+}
+
+/* 10. Footer */
+footer {
+  background: #2f251b;
+  color: #f0eae1;
+  padding: 40px 20px;
+  font-size: 0.95em;
+}
+.footer-section {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.footer-section div {
+  flex: 1 1 200px;
+  margin: 10px;
+}
+.footer-section h4 {
+  margin-bottom: 8px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1em;
+}
+
+/* ===================================================================
+   11. CHỈNH SỬA “TẤT CẢ” (Calendar) NHIỀU NGÀY & LEGEND
+   =================================================================== */
+
+/* 11.1. Container hiển thị 3 nút preset + 1 nút “Tất cả” */
+#startDateOptions {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+  flex-wrap: wrap; /* Thêm responsive */
+}
+#startDateOptions button {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+/* Ngày có tour: xanh nhạt */
+#startDateOptions button.tour-available {
+  background: #d4edda;
+  color: #155724;
+  border-color: #c3e6cb;
+}
+#startDateOptions button.tour-available:hover {
+  background: #c3e6cb;
+}
+/* Ngày được chọn (viền nâu) */
+#startDateOptions button.selected {
+  background: #8B4513;
+  color: #fff;
+  border-color: #5d4037;
+}
+/* Nút “Tất cả” */
+#showAllDatesBtn {
+  padding: 6px 12px;
+  border: 1px solid #5d4037;
+  border-radius: 4px;
+  background: #fff;
+  color: #5d4037;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 10px;
+  transition: all 0.2s;
+}
+#showAllDatesBtn:hover {
+  background: #f0e0d6;
+}
+
+/* Hiệu ứng spin cho spinner */
+@keyframes spin {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
+.fa-spinner-custom {
+  animation: spin 1s linear infinite;
+}
+
+/* 11.2. Popup Calendar */
+#calendarPopup {
+  display: none; /* JS mở => display: block */
+  position: absolute;
+  top: 100%;
+  left: 145px;
+  margin-top: 8px;
+  background: #fff;
+  border: 1px solid #5d4037;
+  border-radius: 8px;
+  padding: 10px;
+  z-index: 2000;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: max-content;
+}
+
+/* Điều chỉnh trên điện thoại: đặt left auto và rộng 100% */
+@media (max-width: 480px) {
+  #calendarPopup {
+    left: auto !important;
+    right: 0;
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+}
+
+#calendarPopup #prevMonthBtn,
+#calendarPopup #nextMonthBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 18px;
+  color: #5d4037;
+}
+#calendarPopup #calendarMonthYear {
+  font-weight: bold;
+  color: #5d4037;
+  font-size: 16px;
+  margin: 0 10px;
+}
+
+/* 11.3. Dòng T2..CN */
+#calendarPopup #calendarDays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+  color: #5d4037;
+  font-weight: bold;
+}
+#calendarPopup #calendarDays div {
+  font-size: 12px;
+}
+#calendarPopup #calendarDays div:nth-child(6),
+#calendarPopup #calendarDays div:nth-child(7) {
+  color: red; /* T7, CN = đỏ */
+}
+
+/* 11.4. Các ngày (button) */
+#calendarPopup #calendarDates {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+  margin-top: 4px;
+}
+#calendarPopup #calendarDates button {
+  padding: 6px;
+  border: 1px solid #5d4037;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 32px;
+  height: 32px;
+}
+/* Ngày có tour (preset) */
+#calendarPopup #calendarDates button.tour-available {
+  background: #d4edda;
+  color: #155724;
+}
+#calendarPopup #calendarDates button.tour-available:hover {
+  background: #c3e6cb;
+}
+/* Ngày chọn (viền nâu) */
+#calendarPopup #calendarDates button.selected-date {
+  background: #8B4513;
+  color: #fff;
+  border-color: #5d4037;
+}
+/* Ngày cuối tuần / full */
+#calendarPopup #calendarDates button.weekend {
+  background: #f8d7da;
+  color: #721c24;
+  cursor: not-allowed;
+}
+/* Ngày không có tour */
+#calendarPopup #calendarDates button.no-tour {
+  background: #fff;
+  color: #555;
+  border-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* 11.5. LEGEND (Chú thích) */
+#calendarLegend {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #5d4037;
+}
+#calendarLegend .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+#calendarLegend .legend-item .box {
+  width: 16px;
+  height: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+#calendarLegend .legend-item .box.green {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+#calendarLegend .legend-item .box.white {
+  background-color: #fff;
+  border-color: #ccc;
+}
+#calendarLegend .legend-item .box.red {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+/* 11.6. Warning (nếu chưa chọn ngày) */
+#bookingWarnings {
+  color: red;
+  font-size: 0.95em;
+  margin-top: 5px;
+  display: none;
+}
+
+/* =========
+   Media Queries Responsive
+   ========= */
+@media (max-width: 1024px) {
+  nav {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 10px;
+  }
+  nav .menu {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  nav .logo {
+    font-size: 20px;
+    left: 0;
+    top: 0;
+    margin-bottom: 10px;
+  }
+  .why-search-container {
+    flex-direction: column;
+    padding: 20px;
+  }
+  .why-us {
+    margin-right: 0;
+    max-width: 100%;
+    left: 0;
+  }
+  .search-box {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+@media (max-width: 768px) {
+  .hero {
+    height: auto;
+    padding: 40px 20px;
+  }
+  .hero-title {
+    font-size: 28px;
+  }
+  .hero-subtitle {
+    font-size: 16px;
+  }
+  nav .menu {
+    flex-direction: column;
+    gap: 0;
+  }
+  nav .menu li {
+    padding: 8px 0;
+  }
+  nav .logo img {
+    height: 30px;
+    margin-top: 0;
+  }
+  .why-search-container {
+    padding: 10px;
+  }
+}
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 22px;
+  }
+  .btn-primary {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  .tour-card {
+    width: 100% !important;
+  }
+}
