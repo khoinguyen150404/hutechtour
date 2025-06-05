@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HutechTour</title>
+  
+  <script>
+    // Ngay khi mở home.html, kiểm tra flag đã xem index hay chưa
+    if (!sessionStorage.getItem('seenIndex')) {
+      window.location.href = 'index.html';
+    }
+    // Nếu đã có 'seenIndex', thì tiếp tục load trang
+  </script>
+
+  <link rel="stylesheet" href="preload.css" />
+  <link rel="stylesheet" href="assets/css/home.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="top-bar">
+      <span>📞 0123456789 | 🕕 6h sáng - 11h đêm</span>
+      <div class="socials">
+        <a href="#"><img src="assets/images/fb.png" alt=""></a> |
+        <a href="#"><img src="assets/images/Zalo.png" alt=""></a> |
+        <a href="#"><img src="assets/images/Email.png" alt=""></a>
+      </div>
+    </div>
+    <nav>
+      <a href="home.html">
+        <h1 class="logo"><img src="assets/images/Htour_logo.png" alt=""> HutechTour</h1>
+      </a>
+      <ul class="menu">
+        <li><a class="homechose" href="home.html"class="active">Home</a></li>
+        <li><a href="tours.html" >Tours</a></li>
+        <li><a href="#tourSection" class="btn-dattourdattour" id="btndattour">Đặt Tour</a></li>
+        <li><button class="showPopupBtn" style="all:unset; cursor:pointer;">Trang</button></li>
+        <li><button class="showPopupBtn" style="all:unset; cursor:pointer;">Blog</button></li>
+        <li><button class="Btncontact" style="all:unset; cursor:pointer;">Contact</button></li>
+      </ul>
+    </nav>
+    <section class="hero">
+      <img src="background.png" alt="">
+      <div class="overlay"></div>
+      <div class="hero-content">
+        <h2 class="hero-title">Tìm tour đặc biệt cho bạn hôm nay</h2>
+        <h3 class="hero-subtitle">Cùng HutechTours</h3>
+        <a href="tours.html" class="btn-primary" id="scrollBtn">XEM TOUR</a>
+      </div>
+    </section>
+  </header>
+
+  <div class="why-search-container">
+    <div class="why-us">
+      <h2>Tại sao chọn chúng tôi?</h2>
+      <div class="features">
+        <div class="feature">
+          <strong>Nhiều năm kinh nghiệm</strong>
+          <p>Du Lịch Độc Đáo là người bạn đồng hành tin cậy với dịch vụ chuyên nghiệp từ tư vấn đến hậu tour.</p>
+        </div>
+        <div class="feature">
+          <strong>Giá tốt – Không phí ẩn</strong>
+          <p>Cam kết giá minh bạch, không phí ẩn, khởi hành đúng lịch trình.</p>
+        </div>
+        <div class="feature">
+          <strong>Lịch tour linh hoạt</strong>
+          <p>Tour trong và ngoài nước được cập nhật liên tục, khởi hành hàng tuần, phù hợp với thời gian cá nhân.</p>
+        </div>
+        <div class="feature">
+          <strong>Hướng dẫn viên chuyên nghiệp</strong>
+          <p>Đội ngũ thân thiện, am hiểu văn hóa địa phương, mang lại trải nghiệm an toàn và đáng nhớ.</p>
+        </div>
+        <div class="feature">
+          <strong>Hệ thống hỗ trợ 24/7</strong>
+          <p>Tư vấn trực tuyến mọi lúc, đặt tour nhanh chóng chỉ với vài bước.</p>
+        </div>
+        <div class="feature">
+          <strong>Hành trình trọn vẹn</strong>
+          <p>Chúng tôi đồng hành cùng bạn để mỗi chuyến đi đều là một hành trình đáng nhớ.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+<iframe class="findtour" src="findtour.html" frameborder="0"></iframe>
+<section id="tourSection" class="tour-section">
+    <div class="popular-tours">
+      <img class="tagname1" src="assets/images/tag.png" alt=""/>
+      <h2>Tour Giá Sập Sàn</h2>
+    </div>
+    <div class="container-wrapper">
+      <div class="viewport">
+        <div class="slider" id="slider"></div>
+        <button id="leftBtn"><i class="fas fa-chevron-left"></i></button>
+        <button id="rightBtn"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <section id="dattour" class="tour-section">
+    <div class="popular-tours">
+      <img class="tagname2" src="assets/images/tag.png" alt="">
+      <h2>Tour phổ biến nhất</h2>
+    </div>
+    <div class="container-wrapper">
+      <div class="viewport">
+        <div class="slider" id="hot"></div>
+        <button id="leftBtn1"><i class="fas fa-chevron-left"></i></button>
+        <button id="rightBtn1"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </section>
+  
+  <section class="commitment">
+    <h2>Cam Kết Từ HutechTour</h2>
+    <p>
+      Chúng tôi cam kết mang đến dịch vụ đặt vé tour du lịch uy tín – nhanh chóng – minh bạch. Tất cả tour đều có lịch trình rõ ràng, giá niêm yết không phát sinh và đội ngũ hỗ trợ luôn sẵn sàng 24/7 để đồng hành cùng bạn trong mọi hành trình.
+    </p>
+  </section>
+
+  <section class="newsletter-container">
+    <div class="newsletter">
+      <h2>Đăng ký nhận bản tin</h2>
+      <input type="email" id="newsletterEmail" placeholder="Email của bạn">
+      <button id="newsletterBtn">Đăng ký</button>
+      <p id="newsletterMessage"></p>
+    </div>
+    <div class="map">
+      <iframe
+        src="https://www.google.com/maps?q=10.801817371132653,106.71400057911589&hl=vi&z=15&output=embed"
+        width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-section">
+      <div>
+        <h4>Về chúng tôi</h4>
+        <p>Website thuộc dự án học tập của sinh viên ngành Quản trị Khách sạn – Trường Đại học Công nghệ TP.HCM (HUTECH). Nơi chia sẻ kiến thức và trải nghiệm trong lĩnh vực du lịch và khách sạn.</p>
+      </div>
+      <div>
+        <h4>Liên hệ</h4>
+        <p>Trường Đại học Công nghệ TP.HCM (HUTECH)</p>
+        <p>📍 475A Điện Biên Phủ, P.25, Q. Bình Thạnh, TP.HCM</p>
+        <p>📞 (028) 5445 7777</p>
+        <p>📧 info@hutech.edu.vn</p>
+      </div>
+    </div>
+  </footer>
+
+ <!-- ========= Overlay + Modal ========= -->
+<div class="modal-overlay" id="contactModal">
+  <div class="modal-content">
+    <button class="close-btn" id="closeModalBtn">&times;</button>
+    <h2>Liên hệ với chúng tôi</h2>
+    <p>Nếu có bất kỳ câu hỏi nào, hãy liên hệ qua:</p>
+    <div class="contact-item">
+      <i class="fas fa-map-marker-alt"></i>
+      <span>Địa chỉ: Trường Đại học HUTECH – Gần Cầu Sài Gòn, Q. Bình Thạnh, TP. HCM</span>
+    </div>
+    <div class="contact-item">
+      <i class="fas fa-phone"></i>
+      <span>Điện thoại: (028) 3724 0000</span>
+    </div>
+    <div class="contact-item">
+      <i class="fas fa-envelope"></i>
+      <span>Email: support@hutechtour.vn</span>
+    </div>
+    <div class="contact-item">
+      <i class="fas fa-globe"></i>
+      <span>Website: https://www.hutechtour.vn</span>
+    </div>
+    <p>Hoặc kết nối với chúng tôi qua mạng xã hội:</p>
+    <div class="social-icons">
+      <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
+</div>
+
+  <!-- ====== SCRIPT ====== -->
+  <script src="assets/js/tourManager.js"></script>
+  <script src="assets/js/funcion.js"></script>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const btnContact    = document.querySelector('.Btncontact');
+    const modalOverlay  = document.getElementById('contactModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    // Khi bấm nút Contact → show modal
+    btnContact.addEventListener('click', () => {
+      modalOverlay.classList.add('show');
+    });
+
+    // Khi bấm nút × (close) → ẩn modal
+    closeModalBtn.addEventListener('click', () => {
+      modalOverlay.classList.remove('show');
+    });
+
+    // Khi click bên ngoài vùng .modal-content (tại overlay) → ẩn modal
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) {
+        modalOverlay.classList.remove('show');
+      }
+    });
+
+    // Bấm phím Esc → ẩn modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modalOverlay.classList.contains('show')) {
+        modalOverlay.classList.remove('show');
+      }
+    });
+  });
+</script>
+</body>
+</html>

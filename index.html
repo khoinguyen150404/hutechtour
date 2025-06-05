@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Intro Video HUTECH Tour</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;         /* Ẩn scrollbar trong lúc intro */
+      background: #000;         /* Nền đen phòng khi video load chậm */
+    }
+    #intro-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      z-index: 9999;
+      opacity: 1;
+      transition: opacity 2s ease; /* Thời gian fade-out = 2 giây */
+    }
+    #intro-container.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+    #intro-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: cover; /* Cover full màn, cắt phần thừa nếu cần */
+    }
+  </style>
+</head>
+
+<body>
+  <div id="intro-container">
+    <video id="intro-video" src="assets/videos/hutechtourvideo.mp4" autoplay muted playsinline></video>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const container = document.getElementById('intro-container');
+      const video     = document.getElementById('intro-video');
+
+      // 1. Hiển thị video trong 2 giây
+      const SHOW_DURATION = 2000;
+      let showTimeout = setTimeout(startFade, SHOW_DURATION);
+
+      // Nếu video kết thúc trước 2 giây, fade ngay
+      video.addEventListener('ended', function() {
+        clearTimeout(showTimeout);
+        startFade();
+      });
+
+      function startFade() {
+        // 2. Set flag đã xem intro để home.html kiểm tra
+        sessionStorage.setItem('seenIndex', 'true');
+
+        // 3. Fade-out video trong 2 giây
+        container.classList.add('fade-out');
+
+        // 4. Sau khi fade xong, redirect sang home.html
+        setTimeout(function() {
+          window.location.href = 'home.html';
+        }, 2000);
+      }
+    });
+  </script>
+</body>
+</html>

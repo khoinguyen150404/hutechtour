@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>findtour</title>
+</head>
+<style>
+    .search-box {
+        background: #7a6752;
+        color: #eae2d9;
+        padding: 30px 20px;
+        border-radius: 8px;
+        width: 300px;
+        text-align: left;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .search-box h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: #fff;
+    }
+    .search-box input {
+        width: 93%;
+        padding: 10px;
+        margin: 10px 0;
+        border: none;
+        border-radius: 4px;
+        background: #fdfbf7;
+        color: #3a2d21;
+    }
+    .search-box select {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: none;
+        border-radius: 4px;
+        background: #fdfbf7;
+        color: #3a2d21;
+    }
+    .search-box button {
+        background: #3a2d21;
+        color: white;
+        border: none;
+        padding: 12px;
+        width: 100%;
+        margin-top: 10px;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>
+<body>
+    <div class="search-box">
+        <h3>Tìm Tour</h3>
+        <p>Tìm tour mơ ước của bạn hôm nay!</p>
+        <select id="selectDiemDen">
+            <option value="">Chọn điểm đến</option>
+        </select>
+        <select id="selectThoiGian">
+            <option value="">Chọn thời gian</option>
+        </select>
+        <select id="selecttheLoai">
+            <option value="">Chọn loại tour</option>
+        </select>
+        <select id="selectMua">
+            <option value="">Chọn mùa</option>
+            <option value="Xuân">Xuân</option>
+            <option value="Hạ">Hạ</option>
+            <option value="Thu">Thu</option>
+            <option value="Đông">Đông</option>
+        </select>
+        <button id="btnTimTour">TÌM TOUR</button>
+    </div>
+
+<script>
+    // Hàm tải dữ liệu và điền vào dropdown
+    async function loadTours() {
+        const response = await fetch('assets/data/tours.json');
+        const data = await response.json();
+        console.log(data); // Kiểm tra dữ liệu tải được từ JSON
+
+        // Lấy danh sách điểm đến duy nhất từ cả tour giảm giá và tour phổ biến
+        const diemDens = [
+            ...new Set([
+                ...data.tourGiamGia.map(t => t.ten),
+                ...data.tourPhoBien.map(t => t.ten)
+            ])
+        ].sort();
+
+        const selectDiemDen = document.getElementById('selectDiemDen');
+        diemDens.forEach(diemDen => {
+            const option = document.createElement('option');
+            option.value = diemDen;
+            option.textContent = diemDen;
+            selectDiemDen.appendChild(option);
+        });
+
+        // Lấy danh sách thời gian duy nhất từ cả tour giảm giá và tour phổ biến
+        const thoiGians = [
+            ...new Set([
+                ...data.tourGiamGia.map(t => t.thoiGian),
+                ...data.tourPhoBien.map(t => t.thoiGian)
+            ])
+        ].sort();
+
+        const selectThoiGian = document.getElementById('selectThoiGian');
+        thoiGians.forEach(tg => {
+            const option = document.createElement('option');
+            option.value = tg;
+            option.textContent = tg;
+            selectThoiGian.appendChild(option);
+        });
+
+        // Lấy danh sách loại tour duy nhất từ cả tour giảm giá và tour phổ biến
+        const theLoais = [
+            ...new Set([
+                ...data.tourGiamGia.map(t => t.theLoai),
+                ...data.tourPhoBien.map(t => t.theLoai)
+            ])
+        ].sort();
+
+        const selecttheLoai = document.getElementById('selecttheLoai');
+        theLoais.forEach(lt => {
+            const option = document.createElement('option');
+            option.value = lt;
+            option.textContent = lt;
+            selecttheLoai.appendChild(option);
+        });
+    }
+
+    // Hàm lọc tour dựa trên các tiêu chí
+    function filterTours(tours, filters) {
+        return tours.filter(tour => {
+            const matchDiemDen = !filters.diemDen.length || tour.ten.includes(filters.diemDen);
+            const matchThoiGian = !filters.thoiGian.length || tour.thoiGian.includes(filters.thoiGian);
+            const matchTheLoai = !filters.theLoai.length || tour.theLoai.includes(filters.theLoai);
+            const matchMua = !filters.mua.length || tour.mua.includes(filters.mua);
+            return matchDiemDen && matchThoiGian && matchTheLoai && matchMua;
+        });
+    }
+
+    // Hàm tạo thẻ tour để hiển thị
+    function createTourCard(tour) {
+        const card = document.createElement('div');
+        card.className = 'tour-card';
+        card.style.width = '200px';
+        card.style.border = '1px solid #ccc';
+        card.style.borderRadius = '8px';
+        card.style.padding = '10px';
+        card.style.cursor = 'pointer';
+
+        const img = document.createElement('img');
+        img.src = tour.image;
+        img.alt = tour.ten;
+        img.style.width = '100%';
+        img.style.borderRadius = '8px 8px 0 0';
+
+        const title = document.createElement('h4');
+        title.textContent = tour.ten;
+        title.style.margin = '10px 0 5px 0';
+
+        const desc = document.createElement('p');
+        desc.textContent = tour.moTa;
+        desc.style.fontSize = '14px';
+        desc.style.height = '40px';
+        desc.style.overflow = 'hidden';
+
+        card.appendChild(img);
+        card.appendChild(title);
+        card.appendChild(desc);
+
+        card.addEventListener('click', () => {
+            // Lưu dữ liệu tour vào sessionStorage
+            sessionStorage.setItem('selectedTour', JSON.stringify(tour));
+            // Chuyển sang trang payment.html với id tour
+            window.location.href = `payment.html?id=${tour.id}`;
+        });
+
+        return card;
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        await loadTours();
+
+        document.getElementById('btnTimTour').addEventListener('click', () => {
+            const diemDen = document.getElementById('selectDiemDen').value;
+            const thoiGian = document.getElementById('selectThoiGian').value;
+            const theLoai = document.getElementById('selecttheLoai').value;
+            const mua = document.getElementById('selectMua').value;
+
+            if (!diemDen && !thoiGian && !theLoai && !mua) {
+                alert('Vui lòng chọn ít nhất một tiêu chí tìm kiếm.');
+                return;
+            }
+
+            const params = new URLSearchParams();
+            if (diemDen) params.append('diemDen', diemDen);
+            if (thoiGian) params.append('thoiGian', thoiGian);
+            if (theLoai) params.append('theLoai', theLoai);
+            if (mua) params.append('mua', mua);
+            window.top.location.href = 'searchbox.html?' + params.toString();
+        });
+    });
+</script>
+</body>
+</html>

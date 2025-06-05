@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Đề Xuất</title>
+    <style>
+        .recommended-tours {
+            text-align: center;
+            position: relative;
+            width: 100%;
+            font-size: 30px;
+        }
+
+        .carousel-container {
+            width: 970px;
+            margin: 20px auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .carousel-wrapper {
+            display: flex;
+            transition: transform 1s ease-in-out;
+            width: fit-content;
+        }
+
+        .tour-card {
+            width: 200px;
+            height: 300px;
+            background-color: #fff;
+            border-radius: 8px;
+            text-align: center;
+            padding: 10px;
+            
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            margin-right: 20px;
+            margin-left: 5px;
+            flex-shrink: 0;
+        }
+
+        .tour-card:last-child {
+            margin-right: 0;
+        }
+
+        .tour-card img {
+            width: 180px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .tour-card h4 {
+            font-size: 16px;
+            margin: 10px 0 5px 0;
+            color: #333;
+        }
+
+        .tour-card p {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
+            text-align: left;
+            padding: 0 5px;
+        }
+
+        .tour-card:hover {
+            transform: scale(1.05);
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="recommended-tours">
+        <h2>Tour Đề Xuất</h2>
+        <div class="carousel-container">
+            <div class="carousel-wrapper" id="carousel">
+                <!-- Các thẻ tour sẽ được thêm vào ở đây -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dữ liệu tour mẫu
+        const tours = [
+            {id: "phuyen", ten: "Tour Phú Yên", image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop", moTa: "Khám phá Nhà thờ Mằng Lăng, Đầm Ô Loan, Bãi Xép, Vũng Rô và Hải Đăng Mũi Điện."},
+            {id: "condao", ten: "Tour Côn Đảo", image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=300&fit=crop", moTa: "Tham quan Trại Phú Hải, Chuồng Cọp, tắm biển Đầm Trầu, viếng mộ chị Võ Thị Sáu."},
+            {id: "mangden", ten: "Tour Măng Đen", image: "https://images.unsplash.com/photo-1586500036706-41963de24d8b?w=400&h=300&fit=crop", moTa: "Trải nghiệm văn hóa địa phương, tham quan Thác Pa Sỹ, Hồ Đắk Ke, làng Kon Bring."},
+            {id: "lyson", ten: "Tour Lý Sơn", image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=300&fit=crop", moTa: "Lặn ngắm san hô ở đảo Bé, tham quan Chùa Hang, Cổng Tò Vò, Nhà trưng bày Hoàng Sa."},
+            {id: "quynhon", ten: "Tour Quy Nhơn", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=300&fit=crop", moTa: "Tham quan Ghềnh Ráng Tiên Sa, Kỳ Co – Eo Gió, Tháp Đôi."},
+{id: "haiphong", ten: "Tour Hải Phòng", image: "https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?w=400&h=300&fit=crop", moTa: "Khám phá Vịnh Hạ Long, biển Mũi Né, đảo Cát Bà."}
+        ];
+
+        // Hàm tạo thẻ tour
+        function createTourCard(tour) {
+            const card = document.createElement('div');
+            card.className = 'tour-card';
+            
+            const img = document.createElement('img');
+            img.src = tour.image;
+            img.alt = tour.ten;
+
+            const title = document.createElement('h4');
+            title.textContent = tour.ten;
+
+            const desc = document.createElement('p');
+            desc.textContent = tour.moTa;
+
+            card.appendChild(img);
+            card.appendChild(title);
+            card.appendChild(desc);
+
+            card.addEventListener('click', () => {
+                alert(`Bạn đã chọn ${tour.ten}`);
+                // sessionStorage.setItem('selectedTour', JSON.stringify(tour));
+                // window.location.href = `payment.html?id=${tour.id}`;
+            });
+
+            return card;
+        }
+
+        // Hàm hiển thị các tour
+        function displayTours() {
+            const container = document.getElementById('carousel');
+            container.innerHTML = '';
+
+            // Tạo mảng tour lặp lại để có hiệu ứng cuộn liên tục
+            // Thêm các tour gốc + 5 tour đầu để tạo hiệu ứng seamless
+            const extendedTours = [...tours, ...tours.slice(0, 5)];
+
+            extendedTours.forEach(tour => {
+                const card = createTourCard(tour);
+                container.appendChild(card);
+            });
+        }
+
+        let currentIndex = 0;
+        const cardWidth = 245; // 200px width + 15px margin
+
+        // Hàm di chuyển slider
+        function moveSlider() {
+            const carouselWrapper = document.getElementById('carousel');
+            currentIndex++;
+
+            // Di chuyển về trái
+            carouselWrapper.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+
+            // Khi đến tour cuối cùng, reset về đầu một cách mượt mà
+            if (currentIndex >= tours.length) {
+                setTimeout(() => {
+                    carouselWrapper.style.transition = 'none';
+                    currentIndex = 0;
+                    carouselWrapper.style.transform = `translateX(0px)`;
+                    
+                    // Khôi phục transition sau khi reset
+                    setTimeout(() => {
+                        carouselWrapper.style.transition = 'transform 1s ease-in-out';
+                    }, 50);
+                }, 1000);
+            }
+        }
+
+        // Khởi tạo
+        displayTours();
+
+        // Chạy slider mỗi 3 giây
+        setInterval(moveSlider, 3000);
+    </script>
+
+</body>
+</html>

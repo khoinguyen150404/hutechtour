@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh sách Tour - HutechTour</title>
+  <link rel="stylesheet" href="assets/css/home.css">
+  <link rel="stylesheet" href="assets/css/tours.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <div class="top-bar">
+      <span>📞 0123456789 | 🕕 6h sáng - 11h đêm</span>
+      <div class="socials">
+        <a href="#"><img src="assets/images/fb.png" alt=""></a> | <a href="#"><img src="assets/images/Zalo.png" alt=""></a> | <a href="#"><img src="assets/images/Email.png" alt=""></a>
+      </div>
+    </div>
+    <nav>
+      <a href="home.html"><h1 class="logo"><img src="assets/images/Htour_logo.png" alt=""> HutechTour</h1></a>
+      <ul class="menu">
+        <li><a href="home.html">Home</a></li>
+        <li><a class="homechose" href="tours.html" class="active">Tours</a></li>
+        <li><a href="#tourSection" class="btn-dattourdattour" id="btndattour">Đặt Tour</a></li>
+        <li><button class="showPopupBtn" style="all:unset; cursor:pointer;">Trang</button></li>
+        <li><button class="showPopupBtn" style="all:unset; cursor:pointer;">Blog</button></li>
+        <li><button class="showPopupBtn" style="all:unset; cursor:pointer;">Contact</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="tours-container">
+    <h1>Danh sách Tour</h1>
+    
+    <div class="tours-grid" id="toursGrid">
+      <!-- Tours will be loaded here -->
+    </div>
+
+    <div class="pagination" id="pagination">
+      <!-- Pagination buttons will be added here -->
+    </div>
+  </main>
+<section class="commitment">
+  <h2>Cam Kết Từ HutechTour</h2>
+  <p>
+    Chúng tôi cam kết mang đến dịch vụ đặt vé tour du lịch uy tín – nhanh chóng – minh bạch. Tất cả tour đều có lịch trình rõ ràng, giá niêm yết không phát sinh và đội ngũ hỗ trợ luôn sẵn sàng 24/7 để đồng hành cùng bạn trong mọi hành trình.
+  </p>
+</section>
+
+  <footer>
+    <div class="footer-section">
+      <div>
+        <h4>Về chúng tôi</h4>
+        <p>Website thuộc dự án học tập của sinh viên ngành Quản trị Khách sạn – Trường Đại học Công nghệ TP.HCM (HUTECH). Nơi chia sẻ kiến thức và trải nghiệm trong lĩnh vực du lịch và khách sạn.</p>
+      </div>
+      <div>
+        <h4>Liên hệ</h4>
+        <p>Trường Đại học Công nghệ TP.HCM (HUTECH)</p>
+        <p>📍 475A Điện Biên Phủ, P.25, Q. Bình Thạnh, TP.HCM</p>
+        <p>📞 (028) 5445 7777</p>
+        <p>📧 info@hutech.edu.vn</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentPage = 1;
+    const toursPerPage = 10;
+    let allTours = [];
+
+    async function loadTours() {
+      try {
+        const response = await fetch('assets/data/tours.json');
+        const data = await response.json();
+        
+        // Combine both tour arrays
+        allTours = [...data.tourGiamGia, ...data.tourPhoBien];
+        
+        renderTours();
+        setupPagination();
+      } catch (error) {
+        console.error('Error loading tours:', error);
+      }
+    }
+
+    function renderTours() {
+      const starthome = (currentPage - 1) * toursPerPage;
+      const endhome = starthome + toursPerPage;
+      const toursToShow = allTours.slice(starthome, endhome);
+      
+      const toursGrid = document.getElementById('toursGrid');
+      toursGrid.innerHTML = '';
+
+      toursToShow.forEach(tour => {
+        const tourCard = document.createElement('div');
+        tourCard.className = 'tour-card';
+        
+        const priceDisplay = tour.giamGia ? 
+          `<div class="price">
+             <div class="price-top">
+               <span class="original-price">${tour.giaGoc} VND</span>
+               <span class="discount">${tour.giamGia} giảm</span>
+             </div>
+             <div class="final-price">${tour.giaMoi} VND</div>
+           </div>` :
+          `<div class="price">
+             <div class="final-price">${tour.gia} VND</div>
+           </div>`;
+
+        tourCard.innerHTML = `
+          <img src="${tour.image}" alt="${tour.ten}">
+          <div class="tour-content">
+            <h3>${tour.ten}</h3>
+            <p class="duration"><i class="far fa-clock"></i> ${tour.thoiGian}</p>
+            <p class="description">${tour.moTa}</p>
+            ${priceDisplay}
+            <div class="rating">
+              ${'★'.repeat(tour.danhGia)}${'☆'.repeat(5-tour.danhGia)}
+              <span>(${tour.soLuotDanhGia} đánh giá)</span>
+            </div>
+            <a href="${tour.linkDatTour}?id=${tour.id}" class="book-button">Đặt Tour</a>
+          </div>
+        `;
+        
+        toursGrid.appendChild(tourCard);
+      });
+    }
+
+    function setupPagination() {
+      const totalPages = Math.ceil(allTours.length / toursPerPage);
+      const pagination = document.getElementById('pagination');
+      pagination.innerHTML = '';
+
+      // Previous button
+      if (currentPage > 1) {
+        const prevButton = document.createElement('button');
+        prevButton.innerHTML = '&laquo; Trước';
+        prevButton.onclick = () => {
+          currentPage--;
+          renderTours();
+          setupPagination();
+          window.scrollTo(0, 0);
+        };
+        pagination.appendChild(prevButton);
+      }
+
+      // Page numbers
+      for (let i = 1; i <= totalPages; i++) {
+        const pageButton = document.createElement('button');
+        pageButton.textContent = i;
+        if (i === currentPage) {
+          pageButton.classList.add('active');
+        }
+        pageButton.onclick = () => {
+          currentPage = i;
+          renderTours();
+          setupPagination();
+          window.scrollTo(0, 0);
+        };
+        pagination.appendChild(pageButton);
+      }
+
+      // Next button
+      if (currentPage < totalPages) {
+        const nextButton = document.createElement('button');
+        nextButton.innerHTML = 'Tiếp &raquo;';
+        nextButton.onclick = () => {
+          currentPage++;
+          renderTours();
+          setupPagination();
+          window.scrollTo(0, 0);
+        };
+        pagination.appendChild(nextButton);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadTours);
+  </script>
+  
+</body>
+</html>

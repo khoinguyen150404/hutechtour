@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh sách Tour - HutechTour</title>
+  <link rel="stylesheet" href="assets/css/home.css">
+  <link rel="stylesheet" href="assets/css/tours.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<style>
+  .search-results-container {
+    padding: 20px;
+}
+.tdx{
+  height: 100%;
+  width: auto;
+}
+#searchResults {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 cột */
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.tour-card {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.tour-card img {
+    width: 100%;
+    height: 370px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.tour-card h4 {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.tour-card p {
+    font-size: 14px;
+    color: #333;
+}
+
+.tour-card:hover {
+    transform: translateY(-5px);
+}
+
+.page-nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.page-nav button {
+    background-color: #3a2d21;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.tdx {
+    width: 100%;
+    height: 500px;
+    border: none;
+    position: relative; /* Để iframe phủ đầy toàn bộ khu vực */
+ 
+}
+
+.page-nav button.disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+h2 {
+  font-family: 'Playfair Display', serif; /* Phông chữ cổ điển, thanh lịch */
+  font-size: 36px;
+  font-weight: 600; /* Đậm vừa phải */
+  color: #4a4a4a; /* Màu tối nhẹ, dễ nhìn */
+  text-align: center; /* Căn giữa */
+  letter-spacing: 2px; /* Khoảng cách giữa các chữ tạo sự thoáng */
+  text-transform: uppercase; /* Chữ hoa hết */
+  margin: 30px 0;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ tạo chiều sâu */
+}
+
+h2 span {
+  font-family: 'Roboto', sans-serif; /* Phông chữ sans-serif để thêm sự hiện đại */
+  font-weight: 400; /* Nhẹ nhàng, không quá đậm */
+  color: #f1c40f; /* Màu vàng nhẹ để tạo điểm nhấn */
+}
+
+</style>
+<body>
+  <header>
+    <div class="top-bar">
+      <span>📞 0123456789 | 🕕 6h sáng - 11h đêm</span>
+      <div class="socials">
+        <a href="#"><img src="assets/images/fb.png" alt=""></a> | <a href="#"><img src="assets/images/Zalo.png" alt=""></a> | <a href="#"><img src="assets/images/Email.png" alt=""></a>
+      </div>
+    </div>
+    <nav>
+      <a href="home.html"><h1 class="logo"><img src="assets/images/Htour_logo.png" alt=""> HutechTour</h1></a>
+      <ul class="menu">
+        <li><a href="home.html">Home</a></li>
+        <li><a class="homechose" href="tours.html" class="active">Tours</a></li>
+        <li><a href="#tourSection" class="btn-dattourdattour" id="btndattour">Đặt Tour</a></li>
+        <li><button class="showPopupBtn" style="all:unset; cursor:pointer;">Trang</button></li>
+        <li><button class="showPopupBtn" style="all:unset; cursor:pointer;">Blog</button></li>
+        <li><button class="showPopupBtn" style="all:unset; cursor:pointer;">Contact</button></li>
+      </ul>
+    </nav>
+  </header>
+
+
+<main>
+  <div class="search-results-container" style="padding: 20px;">
+    <h2>Kết quả tìm kiếm <span>tour</span></h2>
+
+    <div id="searchResults" style="display: flex; flex-wrap: wrap; gap: 15px;"></div>
+  </div>
+
+  <script>
+    let currentPage = 1;
+const itemsPerPage = 8; // Số lượng item hiển thị mỗi trang
+
+async function loadTours() {
+    const response = await fetch('assets/data/tours.json');
+    const data = await response.json();
+    return [...data.tourGiamGia, ...data.tourPhoBien];
+}
+
+function getQueryParams() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+        ten: params.get('ten') || '',
+        thoiGian: params.get('thoiGian') || '',
+        theLoai: params.get('theLoai') || '',
+        mua: params.get('mua') || ''
+    };
+}
+
+function filterTours(tours, filters) {
+    return tours.filter(tour => {
+        const matchTen = !filters.ten || tour.ten.includes(filters.ten);
+        const matchThoiGian = !filters.thoiGian || tour.thoiGian.includes(filters.thoiGian);
+        const matchTheLoai = !filters.theLoai || tour.theLoai.includes(filters.theLoai);
+        const matchMua = !filters.mua || tour.mua.includes(filters.mua);
+        return matchTen && matchThoiGian && matchTheLoai && matchMua;
+    });
+}
+
+function createTourCard(tour) {
+    const card = document.createElement('div');
+    card.className = 'tour-card';
+
+    const img = document.createElement('img');
+    img.src = tour.image;
+    img.alt = tour.ten;
+
+    const title = document.createElement('h4');
+    title.textContent = tour.ten;
+
+    const desc = document.createElement('p');
+    desc.textContent = tour.moTa;
+
+    card.appendChild(img);
+    card.appendChild(title);
+    card.appendChild(desc);
+
+    card.addEventListener('click', () => {
+        sessionStorage.setItem('selectedTour', JSON.stringify(tour));
+        window.location.href = `payment.html?id=${tour.id}`;
+    });
+
+    return card;
+}
+
+function displayTours(tours) {
+    const container = document.getElementById('searchResults');
+    container.innerHTML = '';
+
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+
+    const pageTours = tours.slice(start, end);
+
+    pageTours.forEach(tour => {
+        const card = createTourCard(tour);
+        container.appendChild(card);
+    });
+}
+
+function createPagination(totalItems) {
+    const pageCount = Math.ceil(totalItems / itemsPerPage);
+    const nav = document.querySelector('.page-nav');
+    nav.innerHTML = '';
+
+    const prevButton = document.createElement('button');
+    prevButton.textContent = 'Previous';
+    prevButton.classList.add(currentPage === 1 ? 'disabled' : '');
+    prevButton.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            updatePage();
+        }
+    });
+    nav.appendChild(prevButton);
+
+    for (let i = 1; i <= pageCount; i++) {
+        const pageButton = document.createElement('button');
+        pageButton.textContent = i;
+        pageButton.classList.add(currentPage === i ? 'disabled' : '');
+        pageButton.addEventListener('click', () => {
+            currentPage = i;
+            updatePage();
+        });
+        nav.appendChild(pageButton);
+    }
+
+    const nextButton = document.createElement('button');
+    nextButton.textContent = 'Next';
+    nextButton.classList.add(currentPage === pageCount ? 'disabled' : '');
+    nextButton.addEventListener('click', () => {
+        if (currentPage < pageCount) {
+            currentPage++;
+            updatePage();
+        }
+    });
+    nav.appendChild(nextButton);
+}
+
+function updatePage() {
+    loadTours().then(tours => {
+        const filters = getQueryParams();
+        const filteredTours = filterTours(tours, filters);
+
+        displayTours(filteredTours);
+        createPagination(filteredTours.length);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    updatePage();
+});
+
+  </script>
+</main>
+<iframe class="tdx" src="tourdexuat.html" frameborder="0"></iframe>
+
+<section class="commitment">
+  <h2>Cam Kết Từ HutechTour</h2>
+  <p>
+    Chúng tôi cam kết mang đến dịch vụ đặt vé tour du lịch uy tín – nhanh chóng – minh bạch. Tất cả tour đều có lịch trình rõ ràng, giá niêm yết không phát sinh và đội ngũ hỗ trợ luôn sẵn sàng 24/7 để đồng hành cùng bạn trong mọi hành trình.
+  </p>
+</section>
+
+  <footer>
+    <div class="footer-section">
+      <div>
+        <h4>Về chúng tôi</h4>
+        <p>Website thuộc dự án học tập của sinh viên ngành Quản trị Khách sạn – Trường Đại học Công nghệ TP.HCM (HUTECH). Nơi chia sẻ kiến thức và trải nghiệm trong lĩnh vực du lịch và khách sạn.</p>
+      </div>
+      <div>
+        <h4>Liên hệ</h4>
+        <p>Trường Đại học Công nghệ TP.HCM (HUTECH)</p>
+        <p>📍 475A Điện Biên Phủ, P.25, Q. Bình Thạnh, TP.HCM</p>
+        <p>📞 (028) 5445 7777</p>
+        <p>📧 info@hutech.edu.vn</p>
+      </div>
+    </div>
+  </footer>
+ 
+</body>
+</html>

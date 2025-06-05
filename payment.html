@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Đặt Tour - HutechTour</title>
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" 
+    rel="stylesheet" 
+  />
+  <link 
+    rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" 
+  />
+<link rel="stylesheet" href="assets/css/payment.css">
+
+</head>
+
+<body>
+  <!-- =====================
+       HEADER
+       ===================== -->
+  <header>
+    <div class="top-bar">
+      <span>📞 0123456789 | 🕕 6h sáng - 11h đêm</span>
+      <div class="socials">
+        <a href="#"><img src="assets/images/fb.png" alt=""></a> |
+        <a href="#"><img src="assets/images/Zalo.png" alt=""></a> |
+        <a href="#"><img src="assets/images/Email.png" alt=""></a>
+      </div>
+    </div>
+    <nav>
+      <a href="home.html">
+        <h1 class="logo"><img src="assets/images/Htour_logo.png" alt=""> HutechTour</h1>
+      </a>
+      <ul class="menu">
+        <li><a  href="home.html">Home</a></li>
+        <li><a href="tours.html" class="active">Tours</a></li>
+        <li><a class="homechose" href="#tourSection" class="btn-dattourdattour" id="btndattour">Đặt Tour</a></li>
+        <li><button class="showPopupBtn" style="all:unset; cursor:pointer;">Trang</button></li>
+        <li><button class="showPopupBtn" style="all:unset; cursor:pointer;">Blog</button></li>
+        <li><button class="Btncontact" style="all:unset; cursor:pointer;">Contact</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- =====================
+       WELCOME MARQUEE
+       ===================== -->
+  <div class="welcome-text">
+    <span>Chúc quý khách có một chuyến du lịch thật nhiều niềm vui và trải nghiệm đáng nhớ!</span>
+  </div>
+
+  <!-- =====================
+       NỘI DUNG ĐẶT TOUR
+       ===================== -->
+  <div class="booking-container">
+    <img src="" alt="Tour Image" class="tour-image" id="tourImage" />
+
+    <div class="booking-content">
+      <h1 class="tour-title" id="tourTitle"></h1>
+
+      <!-- THÔNG TIN TOUR -->
+      <div class="tour-info">
+        <div class="info-section">
+          <p>
+            <strong>Thời gian:</strong>
+            <span id="tourDuration"></span>
+          </p>
+          <p>
+            <strong>Khách sạn:</strong>
+            <span id="tourHotel"></span>
+          </p>
+          <p>
+            <strong>Phương tiện:</strong>
+            <span id="tourTransport"></span>
+          </p>
+          <p>
+            <strong>Giá vé người lớn:</strong>
+            <span id="adultPrice"></span>
+          </p>
+          <p>
+            <strong>Giá vé trẻ em:</strong>
+            <span id="childPrice"></span>
+          </p>
+          <p>
+            <strong>Số lượng đã đặt:</strong>
+            <span class="booked-count" id="bookedCount"></span>
+          </p>
+        </div>
+      </div>
+
+      <!-- FORM ĐẶT VÉ -->
+      <div class="booking-form">
+        <!-- SỐ LƯỢNG VÉ -->
+        <div class="form-group">
+          <div>
+            <label>Vé người lớn:</label>
+            <input
+              type="number"
+              id="adultQuantity"
+              min="1"
+              value="1"
+              onchange="updateTotalPrice(); validateBooking(false)"
+            />
+          </div>
+          <div>
+            <label>Vé trẻ em (3-12 tuổi):</label>
+            <input
+              type="number"
+              id="childQuantity"
+              min="0"
+              value="0"
+              onchange="updateTotalPrice(); validateBooking(false)"
+            />
+          </div>
+          <div>
+            <label>Vé trẻ em dưới 3 tuổi:</label>
+            <input
+              type="number"
+              id="infantQuantity"
+              min="0"
+              value="0"
+              onchange="updateTotalPrice(); validateBooking(false)"
+            />
+          </div>
+        </div>
+
+        <!-- CHỌN NGÀY ĐI -->
+        <div class="form-group" style="flex-direction: column; gap: 10px;">
+          <label>Chọn lịch trình và xem giá:</label>
+          <div style="display: flex; align-items: center;">
+            <div id="startDateOptions"></div>
+            <button type="button" id="showAllDatesBtn" style="margin-left: 10px;">
+              Tất cả
+            </button>
+          </div>
+          <input type="hidden" id="endDate" />
+
+          <!-- Popup Calendar -->
+          <div id="calendarPopup">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 10px;
+              "
+            >
+              <button id="prevMonthBtn">&#8249;</button>
+              <span id="calendarMonthYear"></span>
+              <button id="nextMonthBtn">&#8250;</button>
+            </div>
+            <div id="calendarDays">
+              <div>T2</div><div>T3</div><div>T4</div><div>T5</div><div>T6</div
+              ><div style="color: red">T7</div
+              ><div style="color: red">CN</div>
+            </div>
+            <div id="calendarDates"></div>
+
+            <!-- LEGEND -->
+            <div id="calendarLegend">
+              <div class="legend-item">
+                <div class="box green"></div>
+                <span>Ngày có tour</span>
+              </div>
+              <div class="legend-item">
+                <div class="box white"></div>
+                <span>Ngày không có tour</span>
+              </div>
+              <div class="legend-item">
+                <div class="box red"></div>
+                <span>Cuối tuần / Full</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- CẢNH BÁO CHƯA CHỌN NGÀY -->
+          <div id="bookingWarnings"></div>
+        </div>
+
+        <!-- GIÁ & THANH TOÁN -->
+        <div class="price-footer">
+          <div class="price-info">
+            <span class="original-price" id="originalPrice"></span>
+            <span class="final-price" id="finalPrice"></span>
+          </div>
+          <div class="payment-section">
+            <select id="paymentMethod">
+              <option value="">-- Chọn phương thức thanh toán --</option>
+              <option value="card">Thẻ tín dụng</option>
+              <option value="transfer">Chuyển khoản</option>
+              <option value="cash">Tiền mặt</option>
+            </select>
+            <button class="checkout-button" id="checkoutButton" onclick="showWarningPopup()">
+              <i class="fas fa-credit-card"></i> Thanh toán
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================
+       POPUP: CẢNH BÁO (Warning)
+       ===================== -->
+  <div class="popup-overlay" id="warningPopup">
+    <div class="popup">
+      <h3>⚠️ Lưu ý quan trọng</h3>
+      <p>Vé không thể hoàn lại sau khi đặt. HutechTour rất tiếc!</p>
+      <p id="priceSummary" style="margin-top: 10px; font-weight: bold;"></p>
+      <div class="popup-buttons">
+        <button class="popup-button cancel" onclick="closeWarningPopup()">
+          Hủy
+        </button>
+        <button class="popup-button confirm" onclick="showQRPopup()">
+          Xác nhận
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================
+       POPUP: QR Payment
+       ===================== -->
+  <div class="popup-overlay" id="qrPopup">
+    <div class="popup">
+      <h3>Quét mã QR để thanh toán</h3>
+      <div class="qr-code" style="margin: 20px 0;">
+        <!-- Thay bằng ảnh QR thực -->
+        <img src="assets/images/qr-example.png" alt="QR Payment" style="max-width: 200px;" />
+      </div>
+      <button class="popup-button confirm" onclick="confirmPayment()">
+        Xác nhận đã thanh toán
+      </button>
+    </div>
+  </div>
+
+  <!-- =====================
+       POPUP: LOADING
+       ===================== -->
+       
+  <div class="popup-overlay" id="loadingPopup">
+    <div class="popup">
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <i class="fas fa-spinner fa-spinner-custom" style="font-size: 2em; margin-bottom: 10px;"></i>
+
+        <p>Đang xử lý thanh toán...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================
+       POPUP: SUCCESS
+       ===================== -->
+  <div class="popup-overlay" id="successPopup">
+    <div class="popup">
+      <h3>🎉 Thanh toán thành công!</h3>
+      <p>Cảm ơn quý khách đã đặt tour. Chúng tôi sẽ liên hệ sớm nhất!</p>
+      <div class="popup-buttons">
+        <button class="popup-button confirm" onclick="window.location.href='home.html'">
+          Về trang chủ
+        </button>
+        <button class="popup-button" onclick="downloadReceipt()">Tải biên lai</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================
+       FOOTER
+       ===================== -->
+
+
+
+
+       <iframe class="tdx" src="tourdexuat.html" frameborder="0"></iframe>
+
+<section class="commitment">
+  <h2>Cam Kết Từ HutechTour</h2>
+  <p>
+    Chúng tôi cam kết mang đến dịch vụ đặt vé tour du lịch uy tín – nhanh chóng – minh bạch. Tất cả tour đều có lịch trình rõ ràng, giá niêm yết không phát sinh và đội ngũ hỗ trợ luôn sẵn sàng 24/7 để đồng hành cùng bạn trong mọi hành trình.
+  </p>
+</section>
+
+  <footer>
+    <div class="footer-section">
+      <div>
+        <h4>Về chúng tôi</h4>
+        <p>
+          Website thuộc dự án học tập của sinh viên ngành Quản trị Khách sạn –
+          Trường Đại học Công nghệ TP.HCM (HUTECH). Nơi chia sẻ kiến thức và
+          trải nghiệm trong lĩnh vực du lịch và khách sạn.
+        </p>
+      </div>
+      <div>
+        <h4>Liên hệ</h4>
+        <p>Trường Đại học Công nghệ TP.HCM (HUTECH)</p>
+        <p>📍 475A Điện Biên Phủ, P.25, Q. Bình Thạnh, TP.HCM</p>
+        <p>📞 (028) 5445 7777</p>
+        <p>📧 info@hutech.edu.vn</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================
+       TOÀN BỘ JAVASCRIPT CHO TRANG ĐẶT TOUR
+       ======================================== -->
+  <script>
+    let currentTour = null;
+    let selectedStartDate = ''; // ISO string ngày user chọn
+    let tourDates = [];         // Mảng ISO string 3 ngày preset
+    let calendarYear, calendarMonth;
+
+    // Khi DOM Content Loaded:
+    document.addEventListener('DOMContentLoaded', () => {
+      loadTourDetails();          // 1. Tải thông tin tour
+      generatePresetTourDates();  // 2. Tạo 3 ngày preset không trùng
+      renderPresetButtons();      // 3. Hiển thị 3 nút preset
+      initCalendar();             // 4. Khởi tạo (năm, tháng) Calendar
+      attachEventHandlers();      // 5. Đăng ký event cho Calendar + “Tất cả”
+
+      // Bắt sự kiện thay đổi số lượng vé => Update giá & validate
+      ['adultQuantity', 'childQuantity', 'infantQuantity'].forEach(id => {
+        document.getElementById(id).addEventListener('change', () => {
+          updateTotalPrice();
+          validateBooking(false);
+        });
+      });
+    });
+
+    /* =============================
+       1. TẢI THÔNG TIN TOUR
+       ============================= */
+    async function loadTourDetails() {
+      try {
+        // Kiểm tra xem có dữ liệu tour trong sessionStorage không
+        const storedTour = sessionStorage.getItem('selectedTour');
+        let tour = null;
+
+        if (storedTour) {
+          tour = JSON.parse(storedTour);
+        } else {
+          const urlParams = new URLSearchParams(window.location.search);
+          const tourId = urlParams.get('id');
+          const response = await fetch('assets/data/tours.json');
+          const data = await response.json();
+
+          // Tìm tour trong tourGiamGia hoặc tourPhoBien
+          tour = data.tourGiamGia.find(t => t.id === tourId);
+          if (!tour) {
+            tour = data.tourPhoBien.find(t => t.id === tourId);
+          }
+        }
+
+        if (!tour) return; // Nếu không tìm thấy, dừng
+
+        currentTour = tour;
+
+        // Đổ dữ liệu lên giao diện
+        document.getElementById('tourTitle').textContent = tour.ten;
+        document.getElementById('tourImage').src = tour.image;
+        document.getElementById('tourDuration').textContent = tour.thoiGian;
+
+        // Xác định khách sạn
+        let hotelName = '';
+        switch (tour.id) {
+          case 'phuyen':
+            hotelName = 'Khách sạn Sài Gòn Phú Yên';
+            break;
+          case 'condao':
+            hotelName = 'Khách sạn Côn Đảo Resort';
+            break;
+          case 'mangden':
+            hotelName = 'Khách sạn Măng Đen';
+            break;
+          case 'lyson':
+            hotelName = 'Khách sạn Lý Sơn Resort';
+            break;
+          case 'quynhon':
+            hotelName = 'Khách sạn Mường Thanh Quy Nhơn';
+            break;
+          case 'mientay':
+            hotelName = 'Khách sạn Mường Thanh Cần Thơ';
+            break;
+          case 'sapa':
+            hotelName = 'Khách sạn Bamboo Sapa';
+            break;
+          case 'phanthiet':
+            hotelName = 'Khách sạn Mường Thanh Phan Thiết';
+            break;
+          case 'danang':
+            hotelName = 'Khách sạn Mường Thanh Đà Nẵng';
+            break;
+          default:
+            hotelName = 'Khách sạn 3 sao trung tâm';
+        }
+        document.getElementById('tourHotel').textContent = hotelName;
+
+        // Xác định phương tiện
+        let transport = '';
+        switch (tour.id) {
+          case 'phuyen':
+            transport = 'Xe Mercedes Sprinter 16 chỗ';
+            break;
+          case 'condao':
+            transport = 'Máy bay Vietnam Airlines + Xe du lịch tại đảo';
+            break;
+          case 'mangden':
+            transport = 'Xe Hyundai Universe 45 chỗ';
+            break;
+          case 'lyson':
+            transport = 'Tàu cao tốc + Xe điện tham quan đảo';
+            break;
+          case 'quynhon':
+            transport = 'Xe Thaco Garden 29 chỗ';
+            break;
+          case 'mientay':
+            transport = 'Xe + Tàu du lịch sông nước';
+            break;
+          case 'sapa':
+            transport = 'Tàu hỏa + Xe du lịch tại Sapa';
+            break;
+          case 'phanthiet':
+            transport = 'Xe Samco 35 chỗ';
+            break;
+          case 'danang':
+            transport = 'Máy bay Vietnam Airlines + Xe du lịch tại Đà Nẵng';
+            break;
+          default:
+            transport = 'Xe du lịch máy lạnh đời mới';
+        }
+        document.getElementById('tourTransport').textContent = transport;
+
+        // Random số đã đặt
+        const randomBooked = Math.floor(Math.random() * 31);
+        document.getElementById('bookedCount').textContent = `${randomBooked}/30`;
+
+        // Đặt giá vé lên UI
+        if (tour.giamGia) {
+          document.getElementById('adultPrice').textContent = `${tour.giaMoi} VND`;
+          const basePrice = parseInt(tour.giaMoi.replace(/\./g, ''));
+          const childCalc = Math.round(basePrice * 0.75).toLocaleString('vi-VN');
+          document.getElementById('childPrice').textContent = `${childCalc} VND`;
+
+          document.getElementById('originalPrice').textContent = `Giá gốc: ${tour.giaGoc} VND`;
+          document.getElementById('finalPrice').textContent = `${tour.giaMoi} VND`;
+        } else {
+          document.getElementById('adultPrice').textContent = `${tour.gia} VND`;
+          const basePrice = parseInt(tour.gia.replace(/\./g, ''));
+          const childCalc = Math.round(basePrice * 0.75).toLocaleString('vi-VN');
+          document.getElementById('childPrice').textContent = `${childCalc} VND`;
+
+          document.getElementById('finalPrice').textContent = `${tour.gia} VND`;
+          document.getElementById('originalPrice').style.display = 'none';
+        }
+
+        updateTotalPrice();
+      } catch (error) {
+        console.error('Lỗi khi tải thông tin tour:', error);
+      }
+    }
+
+    /* =============================
+       2. CẬP NHẬT GIÁ TỔNG
+       ============================= */
+    function updateTotalPrice() {
+      if (!currentTour) return;
+      const adultQty = parseInt(document.getElementById('adultQuantity').value) || 0;
+      const childQty = parseInt(document.getElementById('childQuantity').value) || 0;
+
+      let basePrice = currentTour.giamGia
+        ? parseInt(currentTour.giaMoi.replace(/\./g, ''))
+        : parseInt(currentTour.gia.replace(/\./g, ''));
+      let total = adultQty * basePrice + childQty * Math.round(basePrice * 0.75);
+
+      if (currentTour.giamGia) {
+        const oldTotal = adultQty * parseInt(currentTour.giaGoc.replace(/\./g, ''));
+        document.getElementById('originalPrice').textContent = `Giá gốc: ${oldTotal.toLocaleString('vi-VN')} VND`;
+      }
+      document.getElementById('finalPrice').textContent = `${total.toLocaleString('vi-VN')} VND`;
+    }
+
+    /* =============================
+       3. VALIDATE ĐẶT TOUR
+       ============================= */
+    function validateBooking(checkDates = false) {
+      const adultQty = parseInt(document.getElementById('adultQuantity').value) || 0;
+      const childQty = parseInt(document.getElementById('childQuantity').value) || 0;
+
+      const bookedText = document.getElementById('bookedCount').textContent.split('/')[0];
+      const currentBooked = parseInt(bookedText);
+      const remaining = 30 - currentBooked;
+      const requested = adultQty + childQty;
+
+      const warnDiv = document.getElementById('bookingWarnings');
+      const checkoutBtn = document.getElementById('checkoutButton');
+      warnDiv.style.display = 'none';
+      warnDiv.textContent = '';
+      checkoutBtn.disabled = false;
+      checkoutBtn.style.background = '#5d4037';
+      checkoutBtn.style.cursor = 'pointer';
+
+      let warnings = [];
+
+      if (!adultQty || adultQty < 1) {
+        warnings.push('Số lượng vé người lớn phải ≥ 1!');
+      }
+      if (requested > remaining) {
+        warnings.push('Số vé vượt quá số vé còn lại, vui lòng đặt lại.');
+      }
+      if (checkDates && !selectedStartDate) {
+        warnings.push('Vui lòng chọn ngày đi!');
+      }
+
+      if (warnings.length > 0) {
+        warnDiv.style.display = 'block';
+        warnDiv.innerHTML = warnings.join('<br>');
+        checkoutBtn.disabled = true;
+        checkoutBtn.style.background = 'gray';
+        checkoutBtn.style.cursor = 'not-allowed';
+        return false;
+      }
+      return true;
+    }
+
+    /* =============================
+       4. POPUP CẢNH BÁO VÀ THANH TOÁN
+       ============================= */
+    function showWarningPopup() {
+      // Kiểm tra đã chọn ngày chưa
+      if (!selectedStartDate) {
+        document.getElementById('bookingWarnings').style.display = 'block';
+        document.getElementById('bookingWarnings').textContent = 'Vui lòng chọn ngày đi!';
+        return;
+      }
+      if (!validateBooking(true)) return;
+      if (!document.getElementById('paymentMethod').value) {
+        alert('Vui lòng chọn phương thức thanh toán!');
+        return;
+      }
+
+      // Tính tiền
+      const adultQty = parseInt(document.getElementById('adultQuantity').value) || 0;
+      const childQty = parseInt(document.getElementById('childQuantity').value) || 0;
+      let adultPrice = 0, childPrice = 0;
+      if (currentTour) {
+        adultPrice = currentTour.giamGia
+          ? parseInt(currentTour.giaMoi.replace(/\./g, ''))
+          : parseInt(currentTour.gia.replace(/\./g, ''));
+        childPrice = Math.round(adultPrice * 0.75);
+      }
+      const totalAdult = adultQty * adultPrice;
+      const totalChild = childQty * childPrice;
+      const total = totalAdult + totalChild;
+
+      // Hiển thị trong popup
+      const priceSummary = document.getElementById('priceSummary');
+      // Chuyển "Ngày đi" sang format DD/MM/YYYY
+      const startFormatted = (() => {
+        const parts = selectedStartDate.split('-');
+        return `${parts[2]}/${parts[1]}/${parts[0]}`;
+      })();
+      // Chuyển "Ngày về" sang format DD/MM/YYYY
+      let endISO = document.getElementById('endDate').value;
+      let endFormatted = '';
+      if (endISO) {
+        const parts2 = endISO.split('-');
+        endFormatted = `${parts2[2]}/${parts2[1]}/${parts2[0]}`;
+      }
+
+      priceSummary.innerHTML = `
+        Giá vé người lớn: ${totalAdult.toLocaleString('vi-VN')} VND<br>
+        Giá vé trẻ em: ${totalChild.toLocaleString('vi-VN')} VND<br>
+        Tổng tiền: ${total.toLocaleString('vi-VN')} VND<br>
+        Ngày đi: ${startFormatted}<br>
+        Ngày về: ${endFormatted}
+      `;
+      document.getElementById('warningPopup').style.display = 'flex';
+    }
+
+    function closeWarningPopup() {
+      document.getElementById('warningPopup').style.display = 'none';
+    }
+
+    function showQRPopup() {
+      document.getElementById('warningPopup').style.display = 'none';
+      document.getElementById('qrPopup').style.display = 'flex';
+    }
+
+    function confirmPayment() {
+      document.getElementById('qrPopup').style.display = 'none';
+      document.getElementById('loadingPopup').style.display = 'flex';
+      setTimeout(() => {
+        document.getElementById('loadingPopup').style.display = 'none';
+        document.getElementById('successPopup').style.display = 'flex';
+      }, 3000);
+    }
+
+    function downloadReceipt() {
+      const receipt = generateReceipt();
+      const blob = new Blob([receipt], { type: 'text/plain' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'bien-lai-hutechtour.txt';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    }
+
+    function generateReceipt() {
+      const adultQty = document.getElementById('adultQuantity').value || 0;
+      const childQty = document.getElementById('childQuantity').value || 0;
+      const infantQty = document.getElementById('infantQuantity').value || 0;
+      const totalPrice = document.getElementById('finalPrice').textContent;
+      // Format "Ngày đi"
+      const startFormatted = (() => {
+        const parts = selectedStartDate.split('-');
+        return `${parts[2]}/${parts[1]}/${parts[0]}`;
+      })();
+      // Format "Ngày về"
+      let endISO = document.getElementById('endDate').value;
+      let endFormatted = '';
+      if (endISO) {
+        const parts2 = endISO.split('-');
+        endFormatted = `${parts2[2]}/${parts2[1]}/${parts2[0]}`;
+      }
+
+      return `BIÊN LAI ĐẶT TOUR
+===================
+Tour: ${currentTour.ten}
+Thời gian: ${currentTour.thoiGian}
+Ngày đi: ${startFormatted}
+Ngày về: ${endFormatted}
+
+Số lượng vé:
+- Người lớn: ${adultQty}
+- Trẻ em (3-12 tuổi): ${childQty}
+- Trẻ em dưới 3 tuổi: ${infantQty}
+
+Phương thức thanh toán: ${document.getElementById('paymentMethod').value}
+Tổng tiền: ${totalPrice}
+
+-------------------
+Chữ ký: HutechTour
+===================`;
+    }
+
+    /* =============================
+       5. DATEPICKER: TẠO 3 NGÀY PRESET
+       ============================= */
+    function generatePresetTourDates() {
+      tourDates = [];
+      const today = new Date();
+      while (tourDates.length < 3) {
+        const randOffset = Math.floor(Math.random() * 30) + 1; // random 1–30 ngày sau
+        const d = new Date(today);
+        d.setDate(d.getDate() + randOffset);
+        const iso = d.toISOString().split('T')[0];
+        if (!tourDates.includes(iso)) {
+          tourDates.push(iso);
+        }
+      }
+      tourDates.sort((a, b) => new Date(a) - new Date(b));
+    }
+
+    /* =============================
+       6. RENDER 3 NÚT PRESET + 1 NÚT “Tất cả”
+       ============================= */
+    function renderPresetButtons() {
+      const container = document.getElementById('startDateOptions');
+      container.innerHTML = '';
+      tourDates.forEach(dateStr => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = new Date(dateStr).toLocaleDateString('vi-VN');
+        btn.dataset.dateValue = dateStr;
+        btn.classList.add('tour-available');
+        btn.addEventListener('click', () => {
+          clearCalendarSelection();
+          selectPresetDate(btn);
+        });
+        container.appendChild(btn);
+      });
+    }
+
+    function selectPresetDate(btnElement) {
+      document.querySelectorAll('#startDateOptions button').forEach(b => {
+        b.classList.remove('selected');
+      });
+      document.getElementById('calendarPopup').style.display = 'none';
+      btnElement.classList.add('selected');
+      selectedStartDate = btnElement.dataset.dateValue;
+      computeEndDate(selectedStartDate);
+      document.getElementById('bookingWarnings').style.display = 'none';
+    }
+
+    function computeEndDate(startISO) {
+      if (!currentTour) return;
+      // Trích “N ngày” từ currentTour.thoiGian
+      const timeStr = currentTour.thoiGian;
+      const dayMatch = timeStr.match(/(\d+)\s*ngày/);
+      let daysToAdd = dayMatch ? parseInt(dayMatch[1]) : 0;
+
+      // Tạo Date mới theo local: new Date(year, month-1, day)
+      const parts = startISO.split('-');
+      const d = new Date(
+        parseInt(parts[0]),
+        parseInt(parts[1]) - 1,
+        parseInt(parts[2])
+      );
+      d.setDate(d.getDate() + daysToAdd);
+
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      document.getElementById('endDate').value = `${yyyy}-${mm}-${dd}`;
+    }
+
+    /* =============================
+       7. KHỞI TẠO CALENDAR (tháng / năm hiện tại)
+       ============================= */
+    function initCalendar() {
+      const today = new Date();
+      calendarYear = today.getFullYear();
+      calendarMonth = today.getMonth();
+      renderCalendar(calendarYear, calendarMonth);
+    }
+
+    /* =============================
+       8. ĐĂNG KÝ SỰ KIỆN CHO “Tất cả” VÀ Calendar
+       ============================= */
+    function attachEventHandlers() {
+      const showAllBtn = document.getElementById('showAllDatesBtn');
+      const calPopup = document.getElementById('calendarPopup');
+      const prevBtn = document.getElementById('prevMonthBtn');
+      const nextBtn = document.getElementById('nextMonthBtn');
+
+      showAllBtn.addEventListener('click', () => {
+        // Bỏ chọn nút preset (nếu có)
+        document.querySelectorAll('#startDateOptions button').forEach(b => {
+          b.classList.remove('selected');
+        });
+        // Hi/ẩn calendarPopup
+        calPopup.style.display = (calPopup.style.display === 'block') ? 'none' : 'block';
+        renderCalendar(calendarYear, calendarMonth);
+      });
+
+      prevBtn.addEventListener('click', () => {
+        calendarMonth--;
+        if (calendarMonth < 0) {
+          calendarMonth = 11;
+          calendarYear--;
+        }
+        renderCalendar(calendarYear, calendarMonth);
+      });
+
+      nextBtn.addEventListener('click', () => {
+        calendarMonth++;
+        if (calendarMonth > 11) {
+          calendarMonth = 0;
+          calendarYear++;
+        }
+        renderCalendar(calendarYear, calendarMonth);
+      });
+    }
+
+    /* =============================
+       9. RENDER CALENDAR (TẤT CẢ NGÀY) VỚI ĐIỀU KIỆN
+       ============================= */
+    function renderCalendar(year, month) {
+      const monthYearEl = document.getElementById('calendarMonthYear');
+      monthYearEl.textContent = `${String(month + 1).padStart(2, '0')}/${year}`;
+
+      const datesContainer = document.getElementById('calendarDates');
+      datesContainer.innerHTML = '';
+
+      // Tính ngày bắt đầu (Monday-first) và tổng số ngày
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+      const totalDays = lastDay.getDate();
+      const startWeekday = (firstDay.getDay() + 6) % 7; // 0=Mon, …,6=Sun
+
+      // Thêm ô trống trước ngày 1
+      for (let i = 0; i < startWeekday; i++) {
+        const emptyDiv = document.createElement('div');
+        datesContainer.appendChild(emptyDiv);
+      }
+
+      // Tạo từng ngày 1..totalDays
+      for (let d = 1; d <= totalDays; d++) {
+        // Tạo đối tượng ngày theo local: new Date(year, month, d)
+        const dateObj = new Date(year, month, d);
+        const iso = dateObj.toISOString().split('T')[0];
+        const weekday = dateObj.getDay(); // 0=CN, 6=T7
+
+        const btn = document.createElement('button');
+        btn.textContent = d;
+        btn.type = 'button';
+
+        // Nếu ngày nằm trong tourDates => "Ngày có tour"
+        if (tourDates.includes(iso) && weekday !== 0 && weekday !== 6) {
+          btn.classList.add('tour-available');
+          btn.dataset.dateValue = iso;
+          btn.addEventListener('click', () => {
+            selectCalendarDate(btn);
+          });
+        }
+        // Nếu ngày cuối tuần (T7/CN) hoặc tourDates chứa nhưng cuối tuần => full
+        else if (weekday === 0 || weekday === 6) {
+          btn.classList.add('weekend');
+          btn.disabled = true;
+        }
+        // Ngày không có tour
+        else {
+          btn.classList.add('no-tour');
+          btn.disabled = true;
+        }
+
+        datesContainer.appendChild(btn);
+      }
+    }
+
+function selectCalendarDate(btnEl) {
+  document.querySelectorAll('#calendarDates button').forEach(b => {
+    b.classList.remove('selected-date');
+  });
+  btnEl.classList.add('selected-date');
+
+  // Cộng thêm 1 ngày so với ngày chọn gốc
+  const parts = btnEl.dataset.dateValue.split('-');
+  const year = parseInt(parts[0], 10);
+  const month = parseInt(parts[1], 10) - 1;
+  const day = parseInt(parts[2], 10);
+  const dateObj = new Date(year, month, day);
+  dateObj.setDate(dateObj.getDate() + 1);
+
+  const newYear = dateObj.getFullYear();
+  const newMonth = String(dateObj.getMonth() + 1).padStart(2, '0');
+  const newDay = String(dateObj.getDate()).padStart(2, '0');
+  selectedStartDate = `${newYear}-${newMonth}-${newDay}`;
+
+  computeEndDate(selectedStartDate);
+  document.getElementById('calendarPopup').style.display = 'none';
+  showSelectedDateOutside(selectedStartDate);
+  document.getElementById('bookingWarnings').style.display = 'none';
+}
+
+
+    function showSelectedDateOutside(dateStr) {
+      const container = document.getElementById('startDateOptions');
+      const oldBtn = document.getElementById('selectedDateBtn');
+      if (oldBtn) oldBtn.remove();
+
+      const newBtn = document.createElement('button');
+      newBtn.id = 'selectedDateBtn';
+      newBtn.type = 'button';
+      newBtn.textContent = new Date(dateStr).toLocaleDateString('vi-VN');
+      newBtn.dataset.dateValue = dateStr;
+      newBtn.classList.add('selected', 'tour-available');
+      newBtn.style.cursor = 'default';
+      container.insertBefore(newBtn, container.firstChild);
+
+      // Bỏ highlight khỏi 3 nút preset (nếu có)
+      document.querySelectorAll('#startDateOptions button:not(#selectedDateBtn)').forEach(b => {
+        b.classList.remove('selected');
+      });
+    }
+
+    function clearCalendarSelection() {
+      document.querySelectorAll('#calendarDates button').forEach(b => {
+        b.classList.remove('selected-date');
+      });
+      const oldBtn = document.getElementById('selectedDateBtn');
+      if (oldBtn) oldBtn.remove();
+    }
+  </script>
+</body>
+</html>
