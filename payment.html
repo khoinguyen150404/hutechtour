@@ -18,7 +18,7 @@
     rel="stylesheet" 
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" 
   />
-<link rel="stylesheet" href="assets/css/payment.css">
+<link rel="stylesheet" href="styleanddata/css/payment.css">
 
 </head>
 
@@ -30,14 +30,14 @@
     <div class="top-bar">
       <span>📞 0123456789 | 🕕 6h sáng - 11h đêm</span>
       <div class="socials">
-        <a href="#"><img src="assets/images/fb.png" alt=""></a> |
-        <a href="#"><img src="assets/images/Zalo.png" alt=""></a> |
-        <a href="#"><img src="assets/images/Email.png" alt=""></a>
+        <a href="#"><img src="styleanddata/images/fb.png" alt=""></a> |
+        <a href="#"><img src="styleanddata/images/Zalo.png" alt=""></a> |
+        <a href="#"><img src="styleanddata/images/Email.png" alt=""></a>
       </div>
     </div>
     <nav>
       <a href="home.html">
-        <h1 class="logo"><img src="assets/images/Htour_logo.png" alt=""> HutechTour</h1>
+        <h1 class="logo"><img src="styleanddata/images/Htour_logo.png" alt=""> HutechTour</h1>
       </a>
       <ul class="menu">
         <li><a  href="home.html">Home</a></li>
@@ -234,7 +234,7 @@
       <h3>Quét mã QR để thanh toán</h3>
       <div class="qr-code" style="margin: 20px 0;">
         <!-- Thay bằng ảnh QR thực -->
-        <img src="assets/images/qr-example.png" alt="QR Payment" style="max-width: 200px;" />
+        <img src="styleanddata/images/qr-example.png" alt="QR Payment" style="max-width: 200px;" />
       </div>
       <button class="popup-button confirm" onclick="confirmPayment()">
         Xác nhận đã thanh toán
@@ -348,7 +348,7 @@
         } else {
           const urlParams = new URLSearchParams(window.location.search);
           const tourId = urlParams.get('id');
-          const response = await fetch('assets/data/tours.json');
+          const response = await fetch('styleanddata/data/tours.json');
           const data = await response.json();
 
           // Tìm tour trong tourGiamGia hoặc tourPhoBien

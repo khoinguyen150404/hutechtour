@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Danh sách Tour - HutechTour</title>
-  <link rel="stylesheet" href="assets/css/home.css">
-  <link rel="stylesheet" href="assets/css/tours.css">
+  <link rel="stylesheet" href="styleanddata/css/home.css">
+  <link rel="stylesheet" href="styleanddata/css/tours.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -17,11 +17,11 @@
     <div class="top-bar">
       <span>📞 0123456789 | 🕕 6h sáng - 11h đêm</span>
       <div class="socials">
-        <a href="#"><img src="assets/images/fb.png" alt=""></a> | <a href="#"><img src="assets/images/Zalo.png" alt=""></a> | <a href="#"><img src="assets/images/Email.png" alt=""></a>
+        <a href="#"><img src="styleanddata/images/fb.png" alt=""></a> | <a href="#"><img src="styleanddata/images/Zalo.png" alt=""></a> | <a href="#"><img src="styleanddata/images/Email.png" alt=""></a>
       </div>
     </div>
     <nav>
-      <a href="home.html"><h1 class="logo"><img src="assets/images/Htour_logo.png" alt=""> HutechTour</h1></a>
+      <a href="home.html"><h1 class="logo"><img src="styleanddata/images/Htour_logo.png" alt=""> HutechTour</h1></a>
       <ul class="menu">
         <li><a href="home.html">Home</a></li>
         <li><a class="homechose" href="tours.html" class="active">Tours</a></li>
@@ -74,7 +74,7 @@
 
     async function loadTours() {
       try {
-        const response = await fetch('assets/data/tours.json');
+        const response = await fetch('styleanddata/data/tours.json');
         const data = await response.json();
         
         // Combine both tour arrays
